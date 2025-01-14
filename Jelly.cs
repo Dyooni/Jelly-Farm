@@ -3,17 +3,19 @@ using UnityEngine;
 public class Jelly : MonoBehaviour
 {
     float currentTime = 0;
+    public float pickTime = 0;
     float speedX;
     float speedY;
     bool isWalking = false;
     bool isLineOut = false;
+    public bool isLive = true;
     public int id;
     public int level;
     public float exp = 0;
 
     public Transform topLeft;
     public Transform bottomRight;
-    public Vector3[] pointList;
+
     Vector3 nextPoint;
     Vector3 moveDir;
 
@@ -74,7 +76,7 @@ public class Jelly : MonoBehaviour
         anim.SetBool("isWalk", true);        
         speedX = Random.Range(-0.8f, 0.8f);
         speedY = Random.Range(-0.8f, 0.8f);
-        nextPoint = pointList[Random.Range(0, pointList.Length)];
+        nextPoint = GameManager.instance.pointList[Random.Range(0, GameManager.instance.pointList.Length)];
 
         isWalking = true;
         currentTime = 0;
@@ -98,17 +100,16 @@ public class Jelly : MonoBehaviour
         }
     }
 
-    void OnMouseDown()
+    void Pick()
     {
-        anim.SetTrigger("doTouch");
-        GetJelatine();
-        StopWalking();
+        // transform.position = GameManager.instance.clickSreen.GetMousePoint();
+        transform.position = GameManager.instance.clickSreen.GetMousePoint();
     }
 
     void GetJelatine()
     {
         GameManager.instance.jelatine += (id + 1) * level;
-        Mathf.Min(GameManager.instance.jelatine, 999999999);
+        Mathf.Min(GameManager.instance.jelatine, 99999999);
 
         if (level < 3) {
             exp++;
@@ -129,6 +130,38 @@ public class Jelly : MonoBehaviour
         if (exp >= maxExp) {
             level++;
             GameManager.instance.ChangeAc(anim, level);
+        }
+    }
+
+    void OnMouseDown()
+    {
+        if (isLive) {
+            anim.SetTrigger("doTouch");
+            GetJelatine();
+            StopWalking();
+            pickTime = 0;
+        }
+    }
+
+    void OnMouseDrag()
+    {
+        if (isLive) {
+            pickTime += Time.deltaTime;
+
+            if (pickTime > 0.5f) {
+                Pick();
+            }
+        }
+    }
+    
+    void OnMouseUp()
+    {
+        if (GameManager.instance.buttonSell.isSell) {
+            GameManager.instance.buttonSell.GetGold();
+            Destroy(gameObject);
+        }
+        if (isLineOut) {
+            transform.position = nextPoint;
         }
     }
 }

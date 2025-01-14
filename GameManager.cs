@@ -13,7 +13,14 @@ public class GameManager : MonoBehaviour
     public Text jelatineText;
     public Text goldText;
 
+    public int[] jellyGoldList;
+    public Vector3[] pointList;
+
     public RuntimeAnimatorController[] levelAc;
+
+    public ClickSreen clickSreen;
+    public Jelly jelly;
+    public ButtonSell buttonSell;
 
     void Awake()
     {
