@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class PlantButtonState : MonoBehaviour
 {
     public bool isClick = false;
+    
     public Sprite showSprite;
     public Sprite hideSprite;
     public Animator panelAnim;

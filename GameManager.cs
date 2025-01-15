@@ -6,25 +6,25 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public float jelatine;
-    public float gold;
     float jelatineValue;
     float goldValue;
-
-    public Text jelatineText;
-    public Text goldText;
+    public float jelatine;
+    public float gold;
 
     public int[] jellyGoldList;
     public Vector3[] pointList;
-
     public RuntimeAnimatorController[] levelAc;
+
+    public Transform topLeft;
+    public Transform bottomRight;
+    public Text jelatineText;
+    public Text goldText;
 
     public ClickSreen clickSreen;
     public Jelly jelly;
     public ButtonSell btnSell;
     public JellyButtonState jellyBtnState;
     public PlantButtonState plantBtnState;
-
 
     void Awake()
     {

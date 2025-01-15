@@ -3,18 +3,16 @@ using UnityEngine;
 public class Jelly : MonoBehaviour
 {
     float currentTime = 0;
-    public float pickTime = 0;
     float speedX;
     float speedY;
     bool isWalking = false;
     bool isLineOut = false;
-    public bool isLive = true;
+
     public int id;
     public int level;
     public float exp = 0;
-
-    public Transform topLeft;
-    public Transform bottomRight;
+    public float pickTime = 0;
+    public bool isLive = true;
 
     Vector3 nextPoint;
     Vector3 moveDir;
@@ -63,10 +61,10 @@ public class Jelly : MonoBehaviour
 
     void CheckLineOut()
     {
-        if (transform.position.x < topLeft.position.x ||
-            transform.position.x > bottomRight.position.x ||
-            transform.position.y > topLeft.position.y ||
-            transform.position.y < bottomRight.position.y) {
+        if (transform.position.x < GameManager.instance.topLeft.position.x ||
+            transform.position.x > GameManager.instance.bottomRight.position.x ||
+            transform.position.y > GameManager.instance.topLeft.position.y ||
+            transform.position.y < GameManager.instance.bottomRight.position.y) {
                 isLineOut = true;
             }
     }

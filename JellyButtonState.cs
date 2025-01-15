@@ -4,10 +4,11 @@ using UnityEngine.UI;
 public class JellyButtonState : MonoBehaviour
 {
     public bool isClick = false;
+
     public Sprite showSprite;
     public Sprite hideSprite;
     public Animator panelAnim;
-
+    
     public Image image;
 
     void Awake()
