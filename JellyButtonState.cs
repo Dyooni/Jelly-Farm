@@ -1,36 +1,28 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonPanel : MonoBehaviour
+public class JellyButtonState : MonoBehaviour
 {
     public bool isClick = false;
-    public bool isLive = true;
-
     public Sprite showSprite;
     public Sprite hideSprite;
-    public GameObject panel;
     public Animator panelAnim;
 
-    Image image;
+    public Image image;
 
     void Awake()
     {
-        image = GetComponent<Image>();    
-    }
-
-    void Update()
-    {
-        if (isClick && Input.GetKeyDown(KeyCode.Escape)) {
-            panelAnim.SetTrigger("doHide");
-            image.sprite = hideSprite;
-            isClick = false;
-            GameManager.instance.jelly.isLive = true;
-        }
+        image = GetComponent<Image>();
     }
 
     public void ButtonClick()
     {
         if (!isClick) {
+            if (GameManager.instance.plantBtnState.isClick) {
+                GameManager.instance.plantBtnState.panelAnim.SetTrigger("doHide");
+                GameManager.instance.plantBtnState.image.sprite = GameManager.instance.plantBtnState.hideSprite;
+                GameManager.instance.plantBtnState.isClick = false;
+            }
             panelAnim.SetTrigger("doShow");
             image.sprite = showSprite;
             isClick = true;

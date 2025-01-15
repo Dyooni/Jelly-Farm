@@ -156,8 +156,8 @@ public class Jelly : MonoBehaviour
     
     void OnMouseUp()
     {
-        if (GameManager.instance.buttonSell.isSell) {
-            GameManager.instance.buttonSell.GetGold();
+        if (GameManager.instance.btnSell.isSell) {
+            GameManager.instance.btnSell.GetGold();
             Destroy(gameObject);
         }
         if (isLineOut) {

@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,7 +21,10 @@ public class GameManager : MonoBehaviour
 
     public ClickSreen clickSreen;
     public Jelly jelly;
-    public ButtonSell buttonSell;
+    public ButtonSell btnSell;
+    public JellyButtonState jellyBtnState;
+    public PlantButtonState plantBtnState;
+
 
     void Awake()
     {
