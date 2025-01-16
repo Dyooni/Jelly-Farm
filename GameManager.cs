@@ -1,4 +1,3 @@
-using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,8 +10,12 @@ public class GameManager : MonoBehaviour
     public float jelatine;
     public float gold;
 
+    public Sprite[] jellySpriteList;
+    public string[] jellyNameList;
+    public int[] jellyJelatineList;
     public int[] jellyGoldList;
     public Vector3[] pointList;
+    
     public RuntimeAnimatorController[] levelAc;
 
     public Transform topLeft;
