@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,18 +12,31 @@ public class JellyPanel : MonoBehaviour
     public Text jelatineTxt;
     public Text pageTxt;
 
+    public GameObject lockGroup;
+
     void Update()
     {
         unlockImg.sprite = GameManager.instance.jellySpriteList[page];
         lockImg.sprite = GameManager.instance.jellySpriteList[page];
+        unlockImg.SetNativeSize();
+        lockImg.SetNativeSize();
         nameTxt.text = GameManager.instance.jellyNameList[page];
 
         goldTxt.text = string.Format("{0:n0}", GameManager.instance.jellyGoldList[page]);
         jelatineTxt.text = string.Format("{0:n0}", GameManager.instance.jellyJelatineList[page]);
         pageTxt.text = string.Format("#{0:00}", page + 1);
 
-        // SetNativeSize 스크립트로 로직 작성해야됨
+        if (GameManager.instance.saveData.jellyUnlockList[page] == 0)
+            lockGroup.SetActive(true);
+        else if (GameManager.instance.saveData.jellyUnlockList[page] == 1)
+            lockGroup.SetActive(false);
     }
 
-    
+    public void Unlock()
+    {
+        if (GameManager.instance.jelatineValue >= GameManager.instance.jellyJelatineList[page]) {
+            GameManager.instance.saveData.jelatine -= GameManager.instance.jellyJelatineList[page];
+            GameManager.instance.saveData.jellyUnlockList[page] = 1;
+        }
+    }
 }

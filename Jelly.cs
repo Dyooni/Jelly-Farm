@@ -100,14 +100,13 @@ public class Jelly : MonoBehaviour
 
     void Pick()
     {
-        // transform.position = GameManager.instance.clickSreen.GetMousePoint();
         transform.position = GameManager.instance.clickSreen.GetMousePoint();
     }
 
     void GetJelatine()
     {
-        GameManager.instance.jelatine += (id + 1) * level;
-        Mathf.Min(GameManager.instance.jelatine, 99999999);
+        GameManager.instance.saveData.jelatine += (id + 1) * level;
+        Mathf.Min(GameManager.instance.saveData.jelatine, 99999999);
 
         if (level < 3) {
             exp++;

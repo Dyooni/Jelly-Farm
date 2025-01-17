@@ -17,9 +17,9 @@ public class ButtonSell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void GetGold()
     {
         
-        GameManager.instance.gold += GameManager.instance.jellyGoldList[GameManager.instance.jelly.id]
+        GameManager.instance.saveData.gold += GameManager.instance.jellyGoldList[GameManager.instance.jelly.id]
                                       * GameManager.instance.jelly.level;
-        Mathf.Min(GameManager.instance.gold, 99999999);
+        Mathf.Min(GameManager.instance.saveData.gold, 99999999);
     }
 
     public void OnPointerEnter(PointerEventData pointer)

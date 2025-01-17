@@ -5,10 +5,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    float jelatineValue;
-    float goldValue;
-    public float jelatine;
-    public float gold;
+    public float jelatineValue;
+    public float goldValue;
 
     public Sprite[] jellySpriteList;
     public string[] jellyNameList;
@@ -28,6 +26,7 @@ public class GameManager : MonoBehaviour
     public ButtonSell btnSell;
     public JellyButtonState jellyBtnState;
     public PlantButtonState plantBtnState;
+    public SaveData saveData;
 
     void Awake()
     {
@@ -36,20 +35,18 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        jelatineValue = PlayerPrefs.GetFloat("Jelatine", 0);
-        goldValue = PlayerPrefs.GetFloat("Gold", 0);
+        saveData.Load();
     }
 
     void LateUpdate()
     {
-        jelatineValue = Mathf.SmoothStep(jelatineValue, jelatine, 0.5f);
-        goldValue = Mathf.SmoothStep(goldValue, gold, 0.5f);
+        jelatineValue = Mathf.SmoothStep(jelatineValue, saveData.jelatine, 0.5f);
+        goldValue = Mathf.SmoothStep(goldValue, saveData.gold, 0.5f);
 
         jelatineText.text = string.Format("{0:n0}", jelatineValue);
         goldText.text = string.Format("{0:n0}", goldValue);
 
-        PlayerPrefs.SetFloat("Jelatine", jelatineValue);
-        PlayerPrefs.SetFloat("Gold", goldValue);
+        saveData.Save();
     }
 
     public void ChangeAc(Animator anim, int level)

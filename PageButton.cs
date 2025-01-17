@@ -17,9 +17,4 @@ public class PageButton : MonoBehaviour
             jellyPanel.page--;
         }
     }
-
-    public void BroadCastMessage(string message, object parameter = null, SendMessageOptions options = SendMessageOptions.RequireReceiver)
-    {
-        
-    }
 }
