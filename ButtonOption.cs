@@ -12,13 +12,13 @@ public class ButtonOption : MonoBehaviour
                 GameManager.instance.jellyBtnState.panelAnim.SetTrigger("doHide");
                 GameManager.instance.jellyBtnState.image.sprite = GameManager.instance.jellyBtnState.hideSprite;
                 GameManager.instance.jellyBtnState.isClick = false;
-                GameManager.instance.jelly.isLive = true;
+                GameManager.instance.jellyGroup.isLive = true;
             }
             else if (GameManager.instance.plantBtnState.isClick) {
                 GameManager.instance.plantBtnState.panelAnim.SetTrigger("doHide");
                 GameManager.instance.plantBtnState.image.sprite = GameManager.instance.plantBtnState.hideSprite;
                 GameManager.instance.plantBtnState.isClick = false;
-                GameManager.instance.jelly.isLive = true;
+                GameManager.instance.jellyGroup.isLive = true;
             }
             else if (!isClick) {
                 panel.SetActive(true);

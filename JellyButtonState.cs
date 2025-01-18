@@ -27,13 +27,13 @@ public class JellyButtonState : MonoBehaviour
             panelAnim.SetTrigger("doShow");
             image.sprite = showSprite;
             isClick = true;
-            GameManager.instance.jelly.isLive = false;
+            GameManager.instance.jellyGroup.isLive = false;
         }
         else {
             panelAnim.SetTrigger("doHide");
             image.sprite = hideSprite;
             isClick = false;
-            GameManager.instance.jelly.isLive = true;
+            GameManager.instance.jellyGroup.isLive = true;
         }
     }
 }

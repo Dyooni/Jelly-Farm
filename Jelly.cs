@@ -12,13 +12,12 @@ public class Jelly : MonoBehaviour
     public int level;
     public float exp = 0;
     public float pickTime = 0;
-    public bool isLive = true;
 
     Vector3 nextPoint;
     Vector3 moveDir;
 
-    Animator anim;
-    SpriteRenderer spriter;
+    public Animator anim;
+    public SpriteRenderer spriter;
     Collider2D collJelly;
 
     void Awake()
@@ -39,10 +38,17 @@ public class Jelly : MonoBehaviour
             StopWalking();
         }
 
+        for (int i = 0; i < GameManager.instance.jellyLevel.Count; i++) {
+            GameManager.instance.jellyLevel[int.Parse(this.gameObject.name)] = level;
+            GameManager.instance.jellyExp[int.Parse(this.gameObject.name)] = exp;
+        }
+
         CheckLineOut();
         FlipJelly();
         AutoGetExp();
         levelUp();
+
+        // StartCoroutine(AutoMoney());
     }
 
     void FixedUpdate()
@@ -57,6 +63,13 @@ public class Jelly : MonoBehaviour
 
             transform.Translate(moveDir * Time.fixedDeltaTime);
         }    
+    }
+
+    void LastUpdate()
+    {
+        if (GameManager.instance.jellyList.Count > 0) {
+            GameManager.instance.jellyLevel.Insert(int.Parse(this.gameObject.name), level);
+        }
     }
 
     void CheckLineOut()
@@ -118,6 +131,8 @@ public class Jelly : MonoBehaviour
         if (level < 3) {
             exp += 1 * Time.deltaTime;
         }
+
+        GameManager.instance.saveData.jelatine += (id + 1) * 0.5f * Time.deltaTime;
     }
 
     void levelUp()
@@ -132,7 +147,7 @@ public class Jelly : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (isLive) {
+        if (GameManager.instance.jellyGroup.isLive) {
             anim.SetTrigger("doTouch");
             GetJelatine();
             StopWalking();
@@ -142,7 +157,7 @@ public class Jelly : MonoBehaviour
 
     void OnMouseDrag()
     {
-        if (isLive) {
+        if (GameManager.instance.jellyGroup.isLive) {
             pickTime += Time.deltaTime;
 
             if (pickTime > 0.5f) {
@@ -154,11 +169,32 @@ public class Jelly : MonoBehaviour
     void OnMouseUp()
     {
         if (GameManager.instance.btnSell.isSell) {
-            GameManager.instance.btnSell.GetGold();
+            // GameManager.instance.btnSell.GetGold();
             Destroy(gameObject);
         }
         if (isLineOut) {
             transform.position = nextPoint;
         }
     }
+
+    void OnDestroy()
+    {
+        GameManager.instance.saveData.gold += GameManager.instance.jellyGoldList[id] * level;
+        Mathf.Min(GameManager.instance.saveData.gold, 99999999);
+
+        GameManager.instance.jellyList.Remove(GameManager.instance.jellyGroup.jelly);
+        GameManager.instance.jellyId.Remove(id);
+        GameManager.instance.jellyLevel.Remove(level);
+        GameManager.instance.jellyExp.Remove(exp);
+    }
+
+    // IEnumerator AutoMoney()
+    // {
+    //     while(true) {
+    //         foreach (var jelly in GameManager.instance.jellyList) {
+    //             GetJelatine();
+    //         }
+    //         yield return new WaitForSeconds(3);
+    //     }
+    // }
 }

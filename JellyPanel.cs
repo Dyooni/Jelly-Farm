@@ -39,4 +39,12 @@ public class JellyPanel : MonoBehaviour
             GameManager.instance.saveData.jellyUnlockList[page] = 1;
         }
     }
+
+    public void BuyCheck()
+    {
+        if (GameManager.instance.goldValue >= GameManager.instance.jellyGoldList[page]) {
+            GameManager.instance.saveData.gold -= GameManager.instance.jellyGoldList[page];
+            GameManager.instance.jellyGroup.BuySuccess();
+        }
+    }
 }

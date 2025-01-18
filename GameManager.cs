@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,11 +23,18 @@ public class GameManager : MonoBehaviour
     public Text goldText;
 
     public ClickSreen clickSreen;
+    public JellyGroup jellyGroup;
     public Jelly jelly;
     public ButtonSell btnSell;
     public JellyButtonState jellyBtnState;
     public PlantButtonState plantBtnState;
+    public JellyPanel jellyPanel;
     public SaveData saveData;
+
+    public List<GameObject> jellyList = new List<GameObject>();
+    public List<int> jellyId = new List<int>();
+    public List<int> jellyLevel = new List<int>();
+    public List<float> jellyExp = new List<float>();
 
     void Awake()
     {
