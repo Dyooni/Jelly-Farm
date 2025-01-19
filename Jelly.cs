@@ -39,8 +39,10 @@ public class Jelly : MonoBehaviour
         }
 
         for (int i = 0; i < GameManager.instance.jellyLevel.Count; i++) {
-            GameManager.instance.jellyLevel[int.Parse(this.gameObject.name)] = level;
-            GameManager.instance.jellyExp[int.Parse(this.gameObject.name)] = exp;
+
+            int n = GameManager.instance.jellyName.IndexOf(int.Parse(this.gameObject.name));
+            GameManager.instance.jellyLevel[n] = level;
+            GameManager.instance.jellyExp[n] = Mathf.RoundToInt(exp);
         }
 
         CheckLineOut();
@@ -68,7 +70,8 @@ public class Jelly : MonoBehaviour
     void LastUpdate()
     {
         if (GameManager.instance.jellyList.Count > 0) {
-            GameManager.instance.jellyLevel.Insert(int.Parse(this.gameObject.name), level);
+            int n = GameManager.instance.jellyName.IndexOf(int.Parse(this.gameObject.name));
+            GameManager.instance.jellyLevel.Insert(n, level);
         }
     }
 
@@ -118,7 +121,9 @@ public class Jelly : MonoBehaviour
 
     void GetJelatine()
     {
-        GameManager.instance.saveData.jelatine += (id + 1) * level;
+        GameManager.instance.soundManager.PlaySfx(8);
+
+        GameManager.instance.saveData.jelatine += (id + 1) * level * GameManager.instance.saveData.clickLevel;
         Mathf.Min(GameManager.instance.saveData.jelatine, 99999999);
 
         if (level < 3) {
@@ -142,6 +147,7 @@ public class Jelly : MonoBehaviour
         if (exp >= maxExp) {
             level++;
             GameManager.instance.ChangeAc(anim, level);
+            GameManager.instance.soundManager.PlaySfx(4);
         }
     }
 
@@ -171,6 +177,7 @@ public class Jelly : MonoBehaviour
         if (GameManager.instance.btnSell.isSell) {
             // GameManager.instance.btnSell.GetGold();
             Destroy(gameObject);
+            GameManager.instance.soundManager.PlaySfx(7);
         }
         if (isLineOut) {
             transform.position = nextPoint;
@@ -182,10 +189,18 @@ public class Jelly : MonoBehaviour
         GameManager.instance.saveData.gold += GameManager.instance.jellyGoldList[id] * level;
         Mathf.Min(GameManager.instance.saveData.gold, 99999999);
 
-        GameManager.instance.jellyList.Remove(GameManager.instance.jellyGroup.jelly);
-        GameManager.instance.jellyId.Remove(id);
-        GameManager.instance.jellyLevel.Remove(level);
-        GameManager.instance.jellyExp.Remove(exp);
+        // GameManager.instance.jellyList[int.Parse(this.gameObject.name)] = null;
+        // GameManager.instance.jellyId[int.Parse(this.gameObject.name)] = 0;
+        // GameManager.instance.jellyLevel[int.Parse(this.gameObject.name)] = 0;
+        // GameManager.instance.jellyExp[int.Parse(this.gameObject.name)] = 0;
+        
+        int n = GameManager.instance.jellyName.IndexOf(int.Parse(this.gameObject.name));
+
+        GameManager.instance.jellyList.RemoveAt(n);
+        GameManager.instance.jellyId.RemoveAt(n);
+        GameManager.instance.jellyLevel.RemoveAt(n);
+        GameManager.instance.jellyExp.RemoveAt(n);
+        GameManager.instance.jellyName.RemoveAt(n);
     }
 
     // IEnumerator AutoMoney()

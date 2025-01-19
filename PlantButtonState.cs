@@ -35,5 +35,7 @@ public class PlantButtonState : MonoBehaviour
             isClick = false;
             GameManager.instance.jellyGroup.isLive = true;
         }
+
+        GameManager.instance.soundManager.PlaySfx(0);
     }
 }

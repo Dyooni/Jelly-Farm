@@ -8,6 +8,8 @@ public class PageButton : MonoBehaviour
     {
         if (jellyPanel.page < 11) {
             jellyPanel.page++;
+
+            GameManager.instance.soundManager.PlaySfx(0);
         }
     }
 
@@ -15,6 +17,8 @@ public class PageButton : MonoBehaviour
     {
         if (jellyPanel.page > 0) {
             jellyPanel.page--;
+
+            GameManager.instance.soundManager.PlaySfx(0);
         }
     }
 }

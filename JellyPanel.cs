@@ -37,14 +37,21 @@ public class JellyPanel : MonoBehaviour
         if (GameManager.instance.jelatineValue >= GameManager.instance.jellyJelatineList[page]) {
             GameManager.instance.saveData.jelatine -= GameManager.instance.jellyJelatineList[page];
             GameManager.instance.saveData.jellyUnlockList[page] = 1;
+            GameManager.instance.soundManager.PlaySfx(9);
+        }
+        else {
+            GameManager.instance.soundManager.PlaySfx(3);
         }
     }
 
     public void BuyCheck()
     {
-        if (GameManager.instance.goldValue >= GameManager.instance.jellyGoldList[page]) {
+        if (GameManager.instance.goldValue >= GameManager.instance.jellyGoldList[page] && GameManager.instance.jellyList.Count < GameManager.instance.saveData.numLevel * 2) {
             GameManager.instance.saveData.gold -= GameManager.instance.jellyGoldList[page];
             GameManager.instance.jellyGroup.BuySuccess();
+        }
+        else {
+            GameManager.instance.soundManager.PlaySfx(3);
         }
     }
 }

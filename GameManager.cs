@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public string[] jellyNameList;
     public int[] jellyJelatineList;
     public int[] jellyGoldList;
+    public int[] numGoldList;
+    public int[] clickGoldList;
     public Vector3[] pointList;
     
     public RuntimeAnimatorController[] levelAc;
@@ -30,19 +32,17 @@ public class GameManager : MonoBehaviour
     public PlantButtonState plantBtnState;
     public JellyPanel jellyPanel;
     public SaveData saveData;
+    public SoundManager soundManager;
 
+    public List<int> jellyName = new List<int>();
     public List<GameObject> jellyList = new List<GameObject>();
     public List<int> jellyId = new List<int>();
     public List<int> jellyLevel = new List<int>();
-    public List<float> jellyExp = new List<float>();
+    public List<int> jellyExp = new List<int>();
 
     void Awake()
     {
-        instance = this;    
-    }
-
-    void Start()
-    {
+        instance = this;
         saveData.Load();
     }
 
@@ -55,6 +55,10 @@ public class GameManager : MonoBehaviour
         goldText.text = string.Format("{0:n0}", goldValue);
 
         saveData.Save();
+
+        if (jellyName.Count < 1) {
+            jellyGroup.n = 0;
+        }
     }
 
     public void ChangeAc(Animator anim, int level)

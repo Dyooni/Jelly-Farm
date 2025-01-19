@@ -24,12 +24,37 @@ public class ButtonOption : MonoBehaviour
                 panel.SetActive(true);
                 Time.timeScale = 0;
                 isClick = true;
+
+                GameManager.instance.soundManager.PlaySfx(5);
             }
             else if (isClick) {
                 panel.SetActive(false);
                 Time.timeScale = 1;
                 isClick = false;
+
+                GameManager.instance.soundManager.PlaySfx(6);
             }
         }
+    }
+
+    public void Continue()
+    {
+        panel.SetActive(false);
+        Time.timeScale = 1;
+        isClick = false;
+
+        GameManager.instance.soundManager.PlaySfx(6);
+    }
+
+    public void GameExit()
+    {
+        GameManager.instance.soundManager.PlaySfx(6);
+
+        Invoke("AppQuit", 0.5f);
+    }
+
+    void AppQuit()
+    {
+        Application.Quit();
     }
 }

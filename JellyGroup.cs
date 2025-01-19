@@ -7,6 +7,8 @@ public class JellyGroup : MonoBehaviour
     public GameObject clone;
     public Jelly child;
 
+    public int n = 0;
+
     public SpriteRenderer jellySprite;
 
     public void BuySuccess()
@@ -17,8 +19,24 @@ public class JellyGroup : MonoBehaviour
         GameManager.instance.jellyList.Add(jelly);
         GameManager.instance.jellyId.Add(GameManager.instance.jelly.id);
         GameManager.instance.jellyLevel.Add(GameManager.instance.jelly.level);
-        GameManager.instance.jellyExp.Add(GameManager.instance.jelly.exp);
-        clone.name = $"{GameManager.instance.jellyList.Count - 1}";
+        GameManager.instance.jellyExp.Add(Mathf.RoundToInt(GameManager.instance.jelly.exp));
+
+        clone.name = $"{n}";
+
+        n++;
+
+        // for (int i = 0; i < this.transform.childCount; i++) {
+        //     if (transform.GetChild(i).name == $"{GameManager.instance.jellyList.Count - 1}") {
+        //         clone.name = $"{int.Parse(transform.GetChild(i).name) + 1}";
+        //     }
+        //     else {
+        //         clone.name = $"{GameManager.instance.jellyList.Count - 1}";
+        //     }
+        // }
+
+        GameManager.instance.jellyName.Add(int.Parse(clone.name));
+
+        GameManager.instance.soundManager.PlaySfx(1);
     }
 
     public void SetJellyData()
