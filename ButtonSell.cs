@@ -31,4 +31,10 @@ public class ButtonSell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         isSell = false;
     }
+
+    public void ClickSell()
+    {
+        GameManager.instance.soundManager.sfxPlayer.PlayOneShot(GameManager.instance.soundManager.sfxClip[0]);
+        GameManager.instance.noticManager.Message("Sell");
+    }
 }

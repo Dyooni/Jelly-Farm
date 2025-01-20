@@ -25,9 +25,11 @@ public class PlantPanel : MonoBehaviour
         if (GameManager.instance.goldValue >= GameManager.instance.numGoldList[GameManager.instance.saveData.numLevel]) {
             GameManager.instance.saveData.gold -= GameManager.instance.numGoldList[GameManager.instance.saveData.numLevel];
             GameManager.instance.saveData.numLevel++;
+            GameManager.instance.soundManager.PlaySfx(9);
         }
         else {
             GameManager.instance.soundManager.PlaySfx(3);
+            GameManager.instance.noticManager.Message("NotGold");
         }
     }
 
@@ -36,9 +38,11 @@ public class PlantPanel : MonoBehaviour
         if (GameManager.instance.goldValue >= GameManager.instance.clickGoldList[GameManager.instance.saveData.clickLevel]) {
             GameManager.instance.saveData.gold -= GameManager.instance.clickGoldList[GameManager.instance.saveData.clickLevel];
             GameManager.instance.saveData.clickLevel++;
+            GameManager.instance.soundManager.PlaySfx(9);
         }
         else {
             GameManager.instance.soundManager.PlaySfx(3);
+            GameManager.instance.noticManager.Message("NotGold");
         }
     }
     

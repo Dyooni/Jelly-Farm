@@ -11,6 +11,11 @@ public class JellyGroup : MonoBehaviour
 
     public SpriteRenderer jellySprite;
 
+    void Start()
+    {
+        isLive = true;
+    }
+
     public void BuySuccess()
     {
         SetJellyData();

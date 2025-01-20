@@ -42,7 +42,7 @@ public class Jelly : MonoBehaviour
 
             int n = GameManager.instance.jellyName.IndexOf(int.Parse(this.gameObject.name));
             GameManager.instance.jellyLevel[n] = level;
-            GameManager.instance.jellyExp[n] = Mathf.RoundToInt(exp);
+            GameManager.instance.jellyExp[n] = exp;
         }
 
         CheckLineOut();

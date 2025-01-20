@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public Transform bottomRight;
     public Text jelatineText;
     public Text goldText;
+    public GameObject clear;
 
     public ClickSreen clickSreen;
     public JellyGroup jellyGroup;
@@ -33,17 +34,34 @@ public class GameManager : MonoBehaviour
     public JellyPanel jellyPanel;
     public SaveData saveData;
     public SoundManager soundManager;
+    public NoticManager noticManager;
 
     public List<int> jellyName = new List<int>();
     public List<GameObject> jellyList = new List<GameObject>();
     public List<int> jellyId = new List<int>();
     public List<int> jellyLevel = new List<int>();
-    public List<int> jellyExp = new List<int>();
+    public List<float> jellyExp = new List<float>();
 
     void Awake()
     {
         instance = this;
         saveData.Load();
+    }
+    void Start()
+    {
+        Clear();
+    }
+
+    public void Clear()
+    {
+        clear.SetActive(saveData.isClear);
+
+        if (saveData.isClear) {
+            noticManager.Message("Clear");
+        }
+        else {
+            noticManager.Message("Start");
+        }
     }
 
     void LateUpdate()

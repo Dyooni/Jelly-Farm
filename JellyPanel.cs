@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class JellyPanel : MonoBehaviour
 {
     public int page = 0;
+    public int jellyUnlockList = 0;
 
     public Image unlockImg;
     public Image lockImg;
@@ -37,10 +38,25 @@ public class JellyPanel : MonoBehaviour
         if (GameManager.instance.jelatineValue >= GameManager.instance.jellyJelatineList[page]) {
             GameManager.instance.saveData.jelatine -= GameManager.instance.jellyJelatineList[page];
             GameManager.instance.saveData.jellyUnlockList[page] = 1;
-            GameManager.instance.soundManager.PlaySfx(9);
+
+            foreach (int i in GameManager.instance.saveData.jellyUnlockList) {
+                jellyUnlockList += i;
+            }
+            
+            if (jellyUnlockList == 12) {
+                GameManager.instance.saveData.isClear = true;
+                GameManager.instance.Clear();
+                GameManager.instance.soundManager.PlaySfx(2);
+            }
+            else {
+                GameManager.instance.soundManager.PlaySfx(9);
+            }
+
+            jellyUnlockList = 0;
         }
         else {
             GameManager.instance.soundManager.PlaySfx(3);
+            GameManager.instance.noticManager.Message("NotJelatin");
         }
     }
 
@@ -50,8 +66,13 @@ public class JellyPanel : MonoBehaviour
             GameManager.instance.saveData.gold -= GameManager.instance.jellyGoldList[page];
             GameManager.instance.jellyGroup.BuySuccess();
         }
+        else if (GameManager.instance.jellyList.Count == GameManager.instance.saveData.numLevel * 2) {
+            GameManager.instance.soundManager.PlaySfx(3);
+            GameManager.instance.noticManager.Message("NotNum");
+        }
         else {
             GameManager.instance.soundManager.PlaySfx(3);
+            GameManager.instance.noticManager.Message("NotGold");
         }
     }
 }
